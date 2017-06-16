@@ -17,13 +17,30 @@ var guessesLeft = 9;
 // *************************************************
 function startGame() {
 	chosenWord = wordOptions[Math.floor(Math.random() * wordOptions.length)];
-	lettersinWord = chosenWord.split(""); // Have an array of selected letters
-	// Change HTML to reflect round conditions
-	
+	lettersInWord = chosenWord.split(""); // Have an array of selected letters
+	numBlanks = lettersInWord.length; // Count the number of blanks needed
+
+	// Resets each round
+	guessesLeft = 9; // Number of guesses remaining back to 9
+	wrongLetters = []; // Resets Letters already guessed to clear
+	blanksAndSuccesses = []; // Resets the blanks and successes
+
+	// Populate blanks and successes with right number of blanks
+	for (var i = 0; i < numBlanks; i++) {
+		blanksAndSuccesses.push('_'); // populate the dashes 
+	}
+
+	// Populate HTML for 'Current Word'
+	document.getElementById("wordToGuess").innerHTML = blanksAndSuccesses.join(" ");
+	document.getElementById("numGuesses").innerHTML = guessesLeft;
+	document.getElementById("winsCounter").innerHTML = winCount;
+	document.getElementById("lossesCounter").innerHTML = lossCount;
 
 	// Testing / Debugging
 	console.log(chosenWord);
-	console.log(lettersinWord);
+	console.log(lettersInWord);
+	console.log(numBlanks);
+	console.log(blanksAndSuccesses);
 	
 }
 
@@ -61,6 +78,7 @@ startGame();
 
 
 // Register the button pressed
+
 
 
 
