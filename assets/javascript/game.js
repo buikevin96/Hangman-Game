@@ -1,7 +1,8 @@
 // GLOBAL VARIABLES
 // *************************************************
 // Arrays and Variables for holding data
-var wordOptions = ["football", "basketball", "soccer", "tennis", "swimming", "track", "wrestling", "boxing"];
+var wordOptions = ["football", "basketball", "soccer", "tennis", "swimming", "track", "wrestling", "boxing",
+				    "hockey", "golf", "nascar", "gymnastics", "bowling", "surfing"];
 var chosenWord = ""; // Holds the selected word
 var lettersInWord = []; // Counts the amount of letters in the word
 var numBlanks = 0; // Based off the number of letters in the word
@@ -69,38 +70,41 @@ function checkLetters(letter) {
 	} else {
 		//Push wrong letter into wrongLetters array
 		wrongLetters.push(letter);
-		numGuesses--;
+		guessesLeft--;
 	}
 
 	// Testing and Debugging
 	console.log(blanksAndSuccesses)
 }
-//Checks the letters that were guessed and put some code into it
 
-	// Check if letter exists in code at all
-	
+function roundComplete() {
+	console.log("Win Count: " + winCount + " | Loss Count: " + lossCount + " | Guesses Left: " + guessesLeft);
 
-	// Checks to see if the letter that was used matched any letter in the word
-	
-
-	// Check where in the word the letter exists, then populate out blanksAndSuccesses array
-	
-
-		// Letter wasnt found
-		
-
-
-
-
-	// Update the HTML to reflect the most recent count stats
-	
+	document.getElementById("numGuesses").innerHTML = guessesLeft;
+	document.getElementById("wordToGuess").innerHTML = blanksAndSuccesses.join(" ");
+	document.getElementById("wrongGuesses").innerHTML = wrongLetters.join(" ");
 
 	// Check if user won
-	
+	if (lettersInWord.toString() == blanksAndSuccesses.toString()) {
+		winCount++;
+		alert("You Won!");
 
 		// Update the win counter in the HTML
+		document.getElementById("winsCounter").innerHTML = winCount;
+		startGame();
+
+	} else if (guessesLeft == 0) { // Checks is user lsot
+		lossCount++;
+		alert("Nope, try again!");
+
+		//Update the lose counter in the HTML
+		document.getElementById("lossesCounter").innerHTML = lossCount;
 		
-	// Check is user lost
+		// Resets each round by starting function startGame again
+		startGame();
+
+	}
+}
 	
 // MAIN PROCESS
 // *************************************************
@@ -112,7 +116,7 @@ startGame();
 document.onkeyup = function(event) {
 	var letterGuessed = String.fromCharCode(event.keyCode).toLowerCase();
 	checkLetters(letterGuessed);
-
+	roundComplete();
 	//Testing & Debugging
 	console.log(letterGuessed);
 }
