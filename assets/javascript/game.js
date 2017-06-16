@@ -44,6 +44,37 @@ function startGame() {
 	
 }
 
+
+function checkLetters(letter) {
+	// Check if letter exist anywhere in word
+	alert(letter);
+
+	var isLetterInWord = false;
+
+	// This will determine whether the letter chosen is in chosenWord array
+	for (var i=0; i<numBlanks; i++){
+		if(chosenWord[i] == letter) {
+			isLetterInWord = true;
+			alert("letter found");
+		}
+	}
+
+	// Check where in the word the letter exists, then populate out blanksAndSuccesses array
+	if(isLetterInWord) {
+		for (var i = 0; i< numBlanks; i++){
+			if(chosenWord[i] == letter) {
+				blanksAndSuccesses[i] = letter;
+			}
+		}
+	} else {
+		//Push wrong letter into wrongLetters array
+		wrongLetters.push(letter);
+		numGuesses--;
+	}
+
+	// Testing and Debugging
+	console.log(blanksAndSuccesses)
+}
 //Checks the letters that were guessed and put some code into it
 
 	// Check if letter exists in code at all
@@ -78,6 +109,14 @@ startGame();
 
 
 // Register the button pressed
+document.onkeyup = function(event) {
+	var letterGuessed = String.fromCharCode(event.keyCode).toLowerCase();
+	checkLetters(letterGuessed);
+
+	//Testing & Debugging
+	console.log(letterGuessed);
+}
+
 
 
 
